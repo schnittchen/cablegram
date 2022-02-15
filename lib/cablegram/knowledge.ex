@@ -1,4 +1,14 @@
 defmodule Cablegram.Knowledge do
+  @moduledoc """
+  Provides knowledge to `Cablegram.ResponseParser`:
+
+  * determines method result types
+  * determines the concrete type of data which is of a polymorphic type.
+
+  The Telegram Bot API documentation does not talk about polymorphic types, neverless
+  it uses this concept.
+  """
+
   alias Cablegram.Type
 
   def method_result_type(method_name) do

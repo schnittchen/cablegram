@@ -1,4 +1,8 @@
 defmodule Cablegram.Model do
+  @moduledoc """
+  Utility module to build a model
+  """
+
   defmacro __using__(opts) do
     %{api_type: api_type, members: members} =
       opts

@@ -1,4 +1,8 @@
 defmodule Cablegram.RequestHandler do
+  @moduledoc """
+  Handles the low-level request, including params transformation.
+  """
+
   def default_opts do
     [base_url: "https://api.telegram.org/bot"]
   end

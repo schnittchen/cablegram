@@ -1,12 +1,33 @@
 defmodule Cablegram.ResponseParser do
+  @moduledoc """
+  Handles parsing of data from the API.
+
+  This module is used by `Cablegram.Request.handle/1` for parsing the response.
+
+  Use `parse_update` when you need to parse an update object obtained via a webhook.
+  """
+
   def default_opts do
     [knowledge: Cablegram.Knowledge, warn_unknown_fields?: true]
   end
 
+  @doc """
+  Parses `data`, which must already be JSON decoded, as an update.
+  Returns a Cablegram.Models.Update.
+
+  This can be used for parsing updates obtained via a webhook.
+  """
   def parse_update(data, opts \\ default_opts()) do
     parse_as(data, Cablegram.Type.Update, opts)
   end
 
+  @doc """
+  Used by `Cablegram.Request.handle/1` for parsing `data`, which is already JSON decoded,
+  from an API response.
+
+  The expected type is determined by the `request`. If the return type of the request
+  method is known, a struct such as `Cablegram.Models.User` is returned.
+  """
   def parse_result_in_response(data, request, opts \\ default_opts()) do
     knowledge = Keyword.fetch!(opts, :knowledge)
 
