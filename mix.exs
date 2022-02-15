@@ -9,9 +9,16 @@ defmodule Cablegram.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       name: "Cablegram",
+      description: "Telegram Bot library for the Elixir language",
       docs: [
         main: "readme",
         extras: ["README.md"]
+      ],
+      package:  [
+        files: ["lib", "mix.exs", "README*", "LICENSE*"],
+        #maintainers: ["Krzysztof Kempiński"],
+        licenses: ["AGPL-3.0-or-later"],
+        links: %{"GitHub" => "https://github.com/schnittchen/cablegram"},
       ]
     ]
   end
