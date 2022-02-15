@@ -34,7 +34,8 @@ defmodule Cablegram.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.8"},
-      {:jason, "~> 1.3.0"}
+      {:jason, "~> 1.3.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 end
