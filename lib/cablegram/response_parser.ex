@@ -67,8 +67,6 @@ defmodule Cablegram.ResponseParser do
             require Logger
 
             Logger.warn("Unknown field #{inspect(field)} for type #{inspect(host_model)}")
-
-            IO.inspect data
           end
 
           acc
