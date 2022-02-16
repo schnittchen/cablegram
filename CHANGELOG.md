@@ -4,7 +4,7 @@
 
 ### Enhancements
 
-TBD
+  * Fallback for data of unknown type is now a struct swapping the deserialized data
 
 ### Bug fixes
 

@@ -52,11 +52,7 @@ defmodule Cablegram.ResponseParser do
     if model = knowledge.model_for_api_type(type) do
       do_parse(data, model, opts)
     else
-      require Logger
-
-      Logger.warn "fallback_transform for #{api_type}"
-
-      knowledge.fallback_transform(data)
+      knowledge.fallback_transform(data, api_type)
     end
   end
 

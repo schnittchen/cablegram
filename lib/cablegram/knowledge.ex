@@ -120,7 +120,13 @@ defmodule Cablegram.Knowledge do
 
   def dynamic_api_type(type, _data), do: type
 
-  def fallback_transform(data), do: {:fallback, data}
+  def fallback_transform(data, api_type) do
+    require Logger
+
+    Logger.warn("fallback_transform for #{api_type}")
+
+    %Cablegram.FallbackFromParser{raw: data}
+  end
 
   Cablegram.Models.all()
   |> Enum.each(fn model ->
