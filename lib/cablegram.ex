@@ -6,7 +6,7 @@ defmodule Cablegram do
 
       %Request{
         token: "YOUR_BOT_TOKEN",
-        method_name: "sentMessage",
+        method_name: "sendMessage",
         params: [chat_id: chat_id, text: "Hello World"]
       }
       |> Request.handle
