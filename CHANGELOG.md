@@ -1,6 +1,6 @@
 # Changelog for v0.x
 
-## v0.2.0 (unreleased)
+## v0.2.0 (2022-06-17)
 
 ### Enhancements
 
