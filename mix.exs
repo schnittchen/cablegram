@@ -16,7 +16,6 @@ defmodule Cablegram.MixProject do
       ],
       package:  [
         files: ["lib", "mix.exs", "README*", "LICENSE*"],
-        #maintainers: ["Krzysztof Kempiński"],
         licenses: ["AGPL-3.0-or-later"],
         links: %{"GitHub" => "https://github.com/schnittchen/cablegram"},
       ]
