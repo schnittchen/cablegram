@@ -210,6 +210,7 @@ defmodule Scraper do
     ~r{On success, returns a (\w*) object}i,
     ~r{On success, a (\w*) object is returned}i,
     ~r{Returns a (\w*) object}i,
+    ~r{Returns (\w*) on success}i,
     ~r{Returns Array of (\w*) on success}i,
     ~r{Returns the (?:new|edited|revoked) invite link (?:as|as a) (\w*) object}i,
     ~r{On success, returns an Array of (\w*) objects}i
