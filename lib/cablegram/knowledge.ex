@@ -18,6 +18,7 @@ defmodule Cablegram.Knowledge do
       "answerInlineQuery" => Type.Itself,
       "answerPreCheckoutQuery" => Type.Itself,
       "answerShippingQuery" => Type.Itself,
+      "answerWebAppQuery" => Type.SentWebAppMessage,
       "approveChatJoinRequest" => Type.Itself,
       "banChatMember" => Type.Itself,
       "banChatSenderChat" => Type.Itself,
@@ -44,10 +45,12 @@ defmodule Cablegram.Knowledge do
       "getChatAdministrators" => Type.ChatMember,
       "getChatMember" => Type.ChatMember,
       "getChatMemberCount" => Type.Itself,
+      "getChatMenuButton" => Type.MenuButton,
       "getFile" => Type.File,
       "getGameHighScores" => Type.GameHighScore,
       "getMe" => Type.User,
       "getMyCommands" => Type.BotCommand,
+      "getMyDefaultAdministratorRights" => Type.ChatAdministratorRights,
       "getStickerSet" => Type.StickerSet,
       "getUpdates" => Type.Update,
       "getUserProfilePhotos" => Type.UserProfilePhotos,
@@ -78,12 +81,14 @@ defmodule Cablegram.Knowledge do
       "sendVoice" => Type.Message,
       "setChatAdministratorCustomTitle" => Type.Itself,
       "setChatDescription" => Type.Itself,
+      "setChatMenuButton" => Type.Itself,
       "setChatPermissions" => Type.Itself,
       "setChatPhoto" => Type.Itself,
       "setChatStickerSet" => Type.Itself,
       "setChatTitle" => Type.Itself,
       "setGameScore" => Type.MessageOrTrue,
       "setMyCommands" => Type.Itself,
+      "setMyDefaultAdministratorRights" => Type.Itself,
       "setPassportDataErrors" => Type.Itself,
       "setStickerPositionInSet" => Type.Itself,
       "setStickerSetThumb" => Type.Itself,
@@ -107,6 +112,15 @@ defmodule Cablegram.Knowledge do
       "restricted" -> Type.ChatMemberRestricted
       "left" -> Type.ChatMemberLeft
       "kicked" -> Type.ChatMemberBanned
+      _ -> Type.Fallback
+    end
+  end
+
+  def dynamic_api_type(Type.MenuButton, %{"type" => type}) do
+    case type do
+      "commands" -> Type.MenuButtonCommands
+      "web_app" -> Type.MenuButtonWebApp
+      "default" -> Type.MenuButtonDefault
       _ -> Type.Fallback
     end
   end

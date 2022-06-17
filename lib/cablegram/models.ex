@@ -117,6 +117,14 @@ defmodule Cablegram.Model.Chat do
   use Model, api_type: Type.Chat, members: @scalars ++ @fixed ++ @structured
 end
 
+defmodule Cablegram.Model.ChatAdministratorRights do
+  @scalars ~w{is_anonymous can_manage_chat can_delete_messages can_manage_video_chats can_restrict_members can_promote_members can_change_info can_invite_users can_post_messages can_edit_messages can_pin_messages}a
+  @fixed []
+  @structured []
+
+  use Model, api_type: Type.ChatAdministratorRights, members: @scalars ++ @fixed ++ @structured
+end
+
 defmodule Cablegram.Model.ChatInviteLink do
   @scalars ~w{invite_link creates_join_request is_primary is_revoked name expire_date member_limit pending_join_request_count}a
   @fixed []
@@ -142,7 +150,7 @@ defmodule Cablegram.Model.ChatLocation do
 end
 
 defmodule Cablegram.Model.ChatMemberAdministrator do
-  @scalars ~w{can_be_edited is_anonymous can_manage_chat can_delete_messages can_manage_voice_chats can_restrict_members can_promote_members can_change_info can_invite_users can_post_messages can_edit_messages can_pin_messages custom_title}a
+  @scalars ~w{can_be_edited is_anonymous can_manage_chat can_delete_messages can_manage_video_chats can_restrict_members can_promote_members can_change_info can_invite_users can_post_messages can_edit_messages can_pin_messages custom_title}a
   @fixed [status: "administrator"]
   @structured [user: Type.User]
 
@@ -312,7 +320,11 @@ end
 defmodule Cablegram.Model.InlineKeyboardButton do
   @scalars ~w{text url callback_data switch_inline_query switch_inline_query_current_chat pay}a
   @fixed []
-  @structured [login_url: Type.LoginUrl, callback_game: Type.CallbackGame]
+  @structured [
+    web_app: Type.WebAppInfo,
+    login_url: Type.LoginUrl,
+    callback_game: Type.CallbackGame
+  ]
 
   use Model, api_type: Type.InlineKeyboardButton, members: @scalars ++ @fixed ++ @structured
 end
@@ -671,7 +683,7 @@ end
 defmodule Cablegram.Model.KeyboardButton do
   @scalars ~w{text request_contact request_location}a
   @fixed []
-  @structured [request_poll: Type.KeyboardButtonPollType]
+  @structured [request_poll: Type.KeyboardButtonPollType, web_app: Type.WebAppInfo]
 
   use Model, api_type: Type.KeyboardButton, members: @scalars ++ @fixed ++ @structured
 end
@@ -716,6 +728,30 @@ defmodule Cablegram.Model.MaskPosition do
   use Model, api_type: Type.MaskPosition, members: @scalars ++ @fixed ++ @structured
 end
 
+defmodule Cablegram.Model.MenuButtonCommands do
+  @scalars ~w{}a
+  @fixed [type: "commands"]
+  @structured []
+
+  use Model, api_type: Type.MenuButtonCommands, members: @scalars ++ @fixed ++ @structured
+end
+
+defmodule Cablegram.Model.MenuButtonDefault do
+  @scalars ~w{}a
+  @fixed [type: "default"]
+  @structured []
+
+  use Model, api_type: Type.MenuButtonDefault, members: @scalars ++ @fixed ++ @structured
+end
+
+defmodule Cablegram.Model.MenuButtonWebApp do
+  @scalars ~w{text}a
+  @fixed [type: "web_app"]
+  @structured [web_app: Type.WebAppInfo]
+
+  use Model, api_type: Type.MenuButtonWebApp, members: @scalars ++ @fixed ++ @structured
+end
+
 defmodule Cablegram.Model.Message do
   @scalars ~w{message_id date forward_from_message_id forward_signature forward_sender_name forward_date is_automatic_forward edit_date has_protected_content media_group_id author_signature text caption new_chat_title delete_chat_photo group_chat_created supergroup_chat_created channel_chat_created migrate_to_chat_id migrate_from_chat_id connected_website}a
   @fixed []
@@ -752,15 +788,15 @@ defmodule Cablegram.Model.Message do
     successful_payment: Type.SuccessfulPayment,
     passport_data: Type.PassportData,
     proximity_alert_triggered: Type.ProximityAlertTriggered,
-    voice_chat_scheduled: Type.VoiceChatScheduled,
-    voice_chat_started: Type.VoiceChatStarted,
-    voice_chat_ended: Type.VoiceChatEnded,
-    voice_chat_participants_invited: Type.VoiceChatParticipantsInvited,
+    video_chat_scheduled: Type.VideoChatScheduled,
+    video_chat_started: Type.VideoChatStarted,
+    video_chat_ended: Type.VideoChatEnded,
+    video_chat_participants_invited: Type.VideoChatParticipantsInvited,
+    web_app_data: Type.WebAppData,
     reply_markup: Type.InlineKeyboardMarkup
   ]
-  @legacy [new_chat_member: :ignore, new_chat_participant: :ignore]
 
-  use Model, api_type: Type.Message, members: @scalars ++ @fixed ++ @structured ++ @legacy
+  use Model, api_type: Type.Message, members: @scalars ++ @fixed ++ @structured
 end
 
 defmodule Cablegram.Model.MessageAutoDeleteTimerChanged do
@@ -969,6 +1005,14 @@ defmodule Cablegram.Model.ResponseParameters do
   use Model, api_type: Type.ResponseParameters, members: @scalars ++ @fixed ++ @structured
 end
 
+defmodule Cablegram.Model.SentWebAppMessage do
+  @scalars ~w{inline_message_id}a
+  @fixed []
+  @structured []
+
+  use Model, api_type: Type.SentWebAppMessage, members: @scalars ++ @fixed ++ @structured
+end
+
 defmodule Cablegram.Model.ShippingAddress do
   @scalars ~w{country_code state city street_line1 street_line2 post_code}a
   @fixed []
@@ -1072,6 +1116,40 @@ defmodule Cablegram.Model.Video do
   use Model, api_type: Type.Video, members: @scalars ++ @fixed ++ @structured
 end
 
+defmodule Cablegram.Model.VideoChatEnded do
+  @scalars ~w{duration}a
+  @fixed []
+  @structured []
+
+  use Model, api_type: Type.VideoChatEnded, members: @scalars ++ @fixed ++ @structured
+end
+
+defmodule Cablegram.Model.VideoChatParticipantsInvited do
+  @scalars ~w{}a
+  @fixed []
+  @structured [users: Type.User]
+
+  use Model,
+    api_type: Type.VideoChatParticipantsInvited,
+    members: @scalars ++ @fixed ++ @structured
+end
+
+defmodule Cablegram.Model.VideoChatScheduled do
+  @scalars ~w{start_date}a
+  @fixed []
+  @structured []
+
+  use Model, api_type: Type.VideoChatScheduled, members: @scalars ++ @fixed ++ @structured
+end
+
+defmodule Cablegram.Model.VideoChatStarted do
+  @scalars ~w{}a
+  @fixed []
+  @structured []
+
+  use Model, api_type: Type.VideoChatStarted, members: @scalars ++ @fixed ++ @structured
+end
+
 defmodule Cablegram.Model.VideoNote do
   @scalars ~w{file_id file_unique_id length duration file_size}a
   @fixed []
@@ -1088,42 +1166,24 @@ defmodule Cablegram.Model.Voice do
   use Model, api_type: Type.Voice, members: @scalars ++ @fixed ++ @structured
 end
 
-defmodule Cablegram.Model.VoiceChatEnded do
-  @scalars ~w{duration}a
+defmodule Cablegram.Model.WebAppData do
+  @scalars ~w{data button_text}a
   @fixed []
   @structured []
 
-  use Model, api_type: Type.VoiceChatEnded, members: @scalars ++ @fixed ++ @structured
+  use Model, api_type: Type.WebAppData, members: @scalars ++ @fixed ++ @structured
 end
 
-defmodule Cablegram.Model.VoiceChatParticipantsInvited do
-  @scalars ~w{}a
-  @fixed []
-  @structured [users: Type.User]
-
-  use Model,
-    api_type: Type.VoiceChatParticipantsInvited,
-    members: @scalars ++ @fixed ++ @structured
-end
-
-defmodule Cablegram.Model.VoiceChatScheduled do
-  @scalars ~w{start_date}a
+defmodule Cablegram.Model.WebAppInfo do
+  @scalars ~w{url}a
   @fixed []
   @structured []
 
-  use Model, api_type: Type.VoiceChatScheduled, members: @scalars ++ @fixed ++ @structured
-end
-
-defmodule Cablegram.Model.VoiceChatStarted do
-  @scalars ~w{}a
-  @fixed []
-  @structured []
-
-  use Model, api_type: Type.VoiceChatStarted, members: @scalars ++ @fixed ++ @structured
+  use Model, api_type: Type.WebAppInfo, members: @scalars ++ @fixed ++ @structured
 end
 
 defmodule Cablegram.Model.WebhookInfo do
-  @scalars ~w{url has_custom_certificate pending_update_count ip_address last_error_date last_error_message max_connections allowed_updates}a
+  @scalars ~w{url has_custom_certificate pending_update_count ip_address last_error_date last_error_message last_synchronization_error_date max_connections allowed_updates}a
   @fixed []
   @structured []
 

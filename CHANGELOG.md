@@ -5,6 +5,7 @@
 ### Enhancements
 
   * Fallback for data of unknown type is now a struct swapping the deserialized data
+  * update for Bot API 6.0
 
 ### Bug fixes
 
